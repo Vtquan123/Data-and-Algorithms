@@ -111,4 +111,22 @@ class ArrayData {
     }
     return newArr.slice(0,arr.length)
   }
+
+  // Merge sorted array
+
+
+  // Remove element
+  removeElement(arr,val) {
+    let i = 0
+    let length = arr.length
+    while (i < length) {
+      if (arr[i] === val) {
+        arr[i] = arr[length - 1]
+        length--
+      } else {
+        i++
+      }
+    }
+    return arr
+  }
 }
