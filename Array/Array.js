@@ -112,8 +112,21 @@ class ArrayData {
     return newArr.slice(0,arr.length)
   }
 
-  // Merge sorted array
+  // Merge sorted arrays
+  mergeSortedArray(arr1, m, arr2, n) {
+    let index1 = m - 1
+    let index2 = n - 1
+    let i = arr1.length - 1
+    while (index1 >= 0 && index2 >= 0) {
+      arr1[i--] = arr1[index1] > arr2[index2] ? arr1[index1--] : arr2[index2--] 
+    }
 
+    while (index2 >= 0) {
+      arr1[i--] = arr2[index2--]
+    }
+
+    return arr1
+}
 
   // Remove element
   removeElement(arr,val) {
@@ -128,5 +141,19 @@ class ArrayData {
       }
     }
     return arr
+  }
+
+  // Remove duplicated element
+  removeDuplicate(arr) {
+    if (!arr.length) {
+      return 0;
+    }
+    let count = 0
+    for (let j = 1; j < arr.length; j++) {
+      if (arr[count] < arr[j]) {
+        arr[++count] = arr[j]
+      }
+    }
+    return arr.slice(0,count + 1)
   }
 }
