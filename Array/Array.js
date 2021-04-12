@@ -156,4 +156,20 @@ class ArrayData {
     }
     return arr.slice(0,count + 1)
   }
+
+  // Check if N and its double value exist
+  checkDoubleExist(arr) {
+    if (arr === null || !arr.length) {
+      return false
+    }
+
+    for (let i = 0; i < arr.length - 1; i++) {
+      for (let j = i + 1; j < arr.length; j++) {
+        if (arr[i] * 2 === arr[j] || arr[i] * 2 === arr[j]) {
+          return true
+        }
+      }
+    }
+    return false
+  }
 }
