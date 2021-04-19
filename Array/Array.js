@@ -87,7 +87,6 @@ class ArrayData {
     let newArr = new Array(arr.length)
     for (let i = 0, j = i; i < arr.length, j < arr.length; i++, j++) {
       if (arr[i] === 0) {
-        console.log(j)
         newArr[j] = 0
         j++
         if(j < arr.length)
@@ -172,4 +171,127 @@ class ArrayData {
     }
     return false
   }
+
+  // Valid mountain array
+  validMountainArr(arr) {
+    let length = arr.length
+    let i = 0
+
+    // Walk up
+    while (i + 1 < length && arr[i] < arr[i + 1]) i++
+    
+    // Edge case
+    if (i === 0 || i === length - 1) return false
+    
+    // Walk down
+    while (i + 1 < length && arr[i] > arr[i + 1]) i++
+    
+    return i === length - 1
+  }
+
+  // Replace elements with greatest element on right side
+  replaceElement(arr) {
+    let length = arr.length
+    let max, temp = 0
+    for (let i = length - 1; i > 0; i--) {
+      max = arr[i] > temp ? arr[i] : temp
+      temp = arr[i - 1]
+      arr[i-1] = max
+    }
+    arr[length - 1] = -1
+    return arr
+  }
+
+  // Move Zeroes
+  moveZeroes(arr) {
+    if (!arr.length) return []
+    let i = 0
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[j] !== 0) {
+        arr[i++] = arr[j]
+      }
+    }
+    while(i < arr.length){ arr[i++] = 0}
+    return arr
+  }
+
+  // Sort Array by Parity
+  sortArrayByParity(arr) {
+    if (!arr.length) return []
+    let j = 0
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] % 2 === 0) {
+        let temp = arr[j]
+        arr[j++] = arr[i]
+        arr[i] = temp
+      }
+    }
+    return arr
+  }
+
+  // Height checker
+  heightChecker(arr) {
+    if (!arr.length) return 0
+    let checked = 0
+    const expected = [...arr].sort((a, b) => a - b)
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] !== expected[i]) {
+        checked++
+      }
+    }
+    return checked
+  }
+
+  // Third max
+  thirdMax(nums) {
+    const length = nums.length
+    nums.sort((a, b) => a - b)
+    if(length < 3) return nums[length-1]
+    else {
+      let count = 0
+      let res = nums[length - 1]
+      for(let i = length-1; i>0; i--) {
+        if(nums[i-1] < nums[i] && count < 2) {
+          res = nums[i-1]
+          count++
+        }
+      }
+      return count === 2 ? res : nums[length-1]
+    }
+};
+
+  // Find all numbers disappear
+  findDisappearedNumbers1(nums) {
+    const orderedNums = nums.map((_, i) => i + 1)
+    return orderedNums.filter(item=>!nums.includes(item))
+  };
+    
+  findDisappearedNumbers2(nums) {
+    let res = []
+    let index = 0
+    for (let i = 0; i < nums.length; i++) {
+      index = Math.abs(nums[i]) - 1
+      nums[index] = Math.abs(nums[index]) * -1
+      console.log(nums)
+    }
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[i] > 0) {
+        res.push(i+1)
+      }
+    }
+    return res
+  }
+
+  findDisappearedNumbers3(nums) {
+    let res = [], arr = new Array(nums.length)
+    for (let i = 0; i < nums.length; i++) {
+      arr[nums[i]-1] = 1
+    }
+    console.log(arr)
+    for (let i = 0; i < nums.length; i++) {
+      if(!arr[i]) res.push(i+1)
+    }
+    return res
+  }
+
 }
